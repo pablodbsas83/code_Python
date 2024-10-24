@@ -162,7 +162,7 @@ def salir():						#función para salir del programa
 		return op
 
 """
-En la función principal se usan las funciones de login(), alta de productos, busqueda y la función de salir
+En la función principal se usan las funciones de login(), alta de productos, busqueda, listar productos y la función de salir
 """
 
 
