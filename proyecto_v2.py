@@ -22,7 +22,6 @@
 #  
 
 import os			#importa la libreria OS para usar el comando del sistema operativo "borrar pantalla"
-
 def inicio():					#Muestra un mensaje al inicio
 	marco="*"
 	titulo="PROYECTO FINAL PRE-ENTREGA"
@@ -31,6 +30,35 @@ def inicio():					#Muestra un mensaje al inicio
 	print("\t"+marco*len(titulo))
 	input("presione una tecla para continuar")
 	return 0
+
+def login():   #función que valida el usuario del sistema
+    intentos=3 
+    i=0
+    pw=''
+    print("\t***CHECK USER***")
+    print("\tIDENTIFIQUESE\n")
+    users=["pablo","vero","cande","root"] #lista que guarda los usuarios válidos
+    password="123456"    #pass general
+    while intentos > 0:
+        print(f"Tiene {cont} Intentos")
+        us = input("Login: ").lower()
+        while i < len(users):			#busca el usuario en la lista users
+            if us == users[i]:			#si lo encuentra pide pass
+                pw=input("password: ")
+                break				#rompe el bucle
+            i+=1
+        if pw == password:				#valida el pass
+            print(f"Usuario {us.upper()} aceptado")
+            return False                            #devuelve false si Es aceptado
+        else:
+            print("Usuario NO Autorizado")
+            intentos-=1				#decrementa el contador de intentos
+            i=0
+    if intentos==0:			#si no tiene más intentos 
+        return True                                 #devuelve True si NO es aceptado
+        
+    
+
 
 def menu():							#función que muestra el menu
 	os.system("clear")				#borra la pantalla en linux, en win cambiar "clear" por "cls"
@@ -133,13 +161,20 @@ def salir():						#función para salir del programa
 		op='4'
 		return op
 
+"""
+En la función principal se usan las funciones de login(), alta de productos, busqueda y la función de salir
+"""
 
 
-
-def main():							#función principal
+def main():			#función principal				
 	listaProductos=[]	#lista donde se almacenan los productos y el stock
 	listaProductos.clear()   #borra cualquier residuo de ejecución anterior
 	op=""
+	noAutorizado=login()  #login()= false Usuario AUTORIZADO, login()=True usuario No AUTORIZADO
+	if noAutorizado:            #si el usuario no esta AUTORIZADO sale del programa
+	    print("Error de Login\n")
+	    print("***ACCESO NO AUTORIZADO***")
+	    return 1
 	inicio()							#muestra el mensaje de inicio
 	while op != '4':					# sale del programa si se ingresa la opción 4
 		menu()
