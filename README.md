@@ -1,2 +1,2 @@
 # code_Python
-Código fuente varios
+En este repo hay código fuente de python para varios ejemplos de uso básico
