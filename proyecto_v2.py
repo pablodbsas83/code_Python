@@ -40,7 +40,7 @@ def login():   #función que valida el usuario del sistema
     users=["pablo","vero","cande","root"] #lista que guarda los usuarios válidos
     password="123456"    #pass general
     while intentos > 0:
-        print(f"Tiene {cont} Intentos")
+        print(f"Tiene {intentos} Intentos")
         us = input("Login: ").lower()
         while i < len(users):			#busca el usuario en la lista users
             if us == users[i]:			#si lo encuentra pide pass
@@ -80,6 +80,8 @@ def validar_producto(producto,listaProductos): #valida si el producto ya fue ing
 			if op=='s':
 				listaProductos[i][1]=input("NUEVO STOCK: ")
 				return False
+			else:
+			    return False
 		i+=1
 	return True
 
