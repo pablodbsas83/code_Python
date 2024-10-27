@@ -5,24 +5,18 @@
 #  
 #  Copyright 2024 Pablo Toledo <pablodbsas83@gmail.com>
 #  
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#  
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#  
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#  MA 02110-1301, USA.
-#  
+"""
+Versión 3
+incluye una función ("modificar" en la linea 144) que modifica el nombre o el stock de un articulo
+En la función "buscar" se añadió la posibilidad de ingresar el producto No Encontrado.
+
+
+"""
+
 
 import os			#importa la libreria OS para usar el comando del sistema operativo "borrar pantalla"
 def inicio():					#Muestra un mensaje al inicio
+	os.system("clear")				#borra la pantalla en linux, en win cambiar "clear" por "cls"
 	marco="*"
 	titulo="PROYECTO FINAL PRE-ENTREGA"
 	print("\t"+marco*len(titulo))	
@@ -49,6 +43,7 @@ def login():   #función que valida el usuario del sistema
             i+=1
         if pw == password:				#valida el pass
             print(f"Usuario {us.upper()} aceptado")
+            input("Presione Enter para continuar")
             return False                            #devuelve false si Es aceptado
         else:
             print("Usuario NO Autorizado")
@@ -62,6 +57,8 @@ def login():   #función que valida el usuario del sistema
 
 def menu():							#función que muestra el menu
 	os.system("clear")				#borra la pantalla en linux, en win cambiar "clear" por "cls"
+	print("\t\t***TIENDA ELECTRÓNICA***")
+	print("\t\t    ***INVENTARIO***")
 	print("\t\t"+("*"*16))
 	print("\t\tMENÚ DE OPCIONES")
 	print("\t\t"+("*"*16))
@@ -137,16 +134,21 @@ def buscar(listaProductos):			#Busca un producto por nombre
 			 break									#Rompe el ciclo
 			i+=1
 
-		if no_se_encontro:											#Si NO encontró el producto lo indica ya que no=True
+		if no_se_encontro: #Si NO encontró el producto lo indica y pregunta si quiere ingresarlo al inventario
 			print(f"Producto: {producto} NO hallado")
+			op1=input(f"Desea ingresar el producto {producto}? S/N ").lower()
+			if op1=='s':
+				stock=input("Ingrese el Stock: ").lower()
+				articulo=[producto,stock]
+				listaProductos.append(articulo)
 			
 		op=input("Desea buscar otro producto? S/N ").lower() #pregunta si quiero buscar otro producto
 		if op=='s':
 			os.system("clear")                   #borra la pantalla en linux, en win cambiar "clear" por "cls"
 			print("***BUSQUEDA DE PRODUCTO***\n")
 			producto=input("Ingrese el nombre del producto: ")
-			i=0								#resetea el indice
-			no_se_encontro=True							#pasa a True por si no encuentra la nueva busqueda
+			i=0					#resetea el indice del while de la linea 123
+			no_se_encontro=True			#pasa a True por si no encuentra la nueva busqueda
 	input("\nPresione enter para continuar")
 	return 0
 		
@@ -212,7 +214,8 @@ def salir():						#función para salir del programa
 		return op
 
 """
-En la función principal se usan las funciones de login(), alta de productos, busqueda, listar productos y la función de salir
+En la función principal se usan las funciones de login(), alta de productos, busqueda,
+modificar, listar productos y la función de salir
 """
 
 
